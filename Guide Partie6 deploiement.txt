@@ -1,0 +1,82 @@
+Voici une version corrigée et reformulée de ton texte pour qu’il soit plus clair et sans fautes :
+
+---
+
+## Déploiement du modèle avec **FastAPI** et **Uvicorn**
+
+Pour exécuter le déploiement du modèle du projet **"Prédire la réussite académique à partir des habitudes quotidiennes : une approche par machine learning"** :
+
+### 1. Télécharger et décompresser le dossier ZIP
+
+Téléchargez le dossier fourni, puis extrayez-le sur votre ordinateur.
+
+### 2. Ouvrir PowerShell
+
+Lancez **Windows PowerShell**.
+
+### 3. Se positionner dans le dossier du projet
+
+Utilisez la commande :
+
+```powershell
+cd "chemin\vers\le\dossier\decompresse"
+```
+
+### 4. Exécuter les commandes suivantes
+
+```powershell
+python -m venv .venv_final
+.\.venv_final\Scripts\Activate.ps1
+pip install --upgrade pip
+pip install -r requirements.txt
+pip install "scikit-learn==1.6.1"
+python -c "import sklearn, sys; print('scikit-learn =', sklearn.__version__, '\nPython =', sys.executable)"
+python convert_model.py
+uvicorn app:app --host 0.0.0.0 --port 8000 --workers 1
+```
+
+### 5. Accéder à l’interface de test
+
+Ouvrez votre navigateur et allez sur :
+[http://localhost:8000/docs](http://localhost:8000/docs)
+
+### 6. Utiliser les endpoints
+
+Dans l’interface Swagger UI :
+
+* Chaque bloc correspond à une route (endpoint) de l’API.
+* Exemple :
+
+  * `POST /predict` → Permet d’envoyer les données d’un étudiant et de recevoir une prédiction.
+  * Cliquez sur POST /predict, puis Try it out.
+  * Saisissez les valeurs des variables d’entrée dans le JSON proposé.
+  * Cliquez sur Execute → La réponse affichera la prédiction au format JSON.
+
+### 7. Exemple de requête
+
+Si le modèle prend en entrée les données suivantes :
+{
+  "gender": "Male",
+  "part_time_job": "",
+  "diet_quality": "string",
+  "parental_education_level": "string",
+  "internet_quality": "string",
+  "extracurricular_participation": "string",
+  "study_hours_per_day": 5,
+  "social_media_hours": 24,
+  "netflix_hours": 24,
+  "attendance_percentage": 90,
+  "sleep_hours": 7,
+  "exercise_frequency": 14,
+  "mental_health_rating": 10,
+  "age": 20
+}
+
+
+### 8. Exemple de sortie
+
+Le modèle renverra par exemple :
+
+{
+  "exam_score_pred": 63.69350289352634
+}
